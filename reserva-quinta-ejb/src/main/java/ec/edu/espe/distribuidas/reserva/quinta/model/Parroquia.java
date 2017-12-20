@@ -13,11 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,18 +22,19 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "parroquia")
-@NamedQueries({
-    @NamedQuery(name = "Parroquia.findAll", query = "SELECT p FROM Parroquia p")})
 public class Parroquia implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected ParroquiaPK parroquiaPK;
-    @Size(max = 100)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", length = 100)
     private String descripcion;
+    
     @OneToMany(mappedBy = "parroquia")
     private List<Direccion> direccionList;
+    
     @JoinColumns({
         @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA", insertable = false, updatable = false),
         @JoinColumn(name = "COD_CANTON", referencedColumnName = "COD_CANTON", insertable = false, updatable = false)})

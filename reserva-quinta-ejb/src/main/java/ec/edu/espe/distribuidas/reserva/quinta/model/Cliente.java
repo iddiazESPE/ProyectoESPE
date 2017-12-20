@@ -7,99 +7,65 @@ package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "cliente")
-@NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "COD_CLIENTE")
-    private Integer codCliente;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "IDENTIFICACION")
+    
+    @Id    
+    @Column(name = "COD_CLIENTE", nullable = false)
+    private Integer codigo;
+    
+    @Column(name = "IDENTIFICACION", nullable = false, length = 15)
     private String identificacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "TIPO_IDENTIFICACION")
+    
+    @Column(name = "TIPO_IDENTIFICACION", nullable = false, length = 3)
     private String tipoIdentificacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "APELLIDO")
+    
+    @Column(name = "APELLIDO", nullable = false, length = 100)
     private String apellido;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "NOMBRE")
+    
+    @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DIRECCION")
+   
+    @Column(name = "DIRECCION", nullable = false, length = 100)
     private String direccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "TELEFONO")
+    
+    @Column(name = "TELEFONO", nullable = false, length = 20)
     private String telefono;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo electrónico no válido")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "EMAIL")
+   
+    @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Reserva> reservaList;
 
     public Cliente() {
     }
 
-    public Cliente(Integer codCliente) {
-        this.codCliente = codCliente;
+    public Cliente(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Cliente(Integer codCliente, String identificacion, String tipoIdentificacion, String apellido, String nombre, String direccion, String telefono, String email) {
-        this.codCliente = codCliente;
-        this.identificacion = identificacion;
-        this.tipoIdentificacion = tipoIdentificacion;
-        this.apellido = apellido;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(Integer codCliente) {
-        this.codCliente = codCliente;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getIdentificacion() {
@@ -168,19 +134,24 @@ public class Cliente implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codCliente != null ? codCliente.hashCode() : 0);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Cliente other = (Cliente) object;
-        if ((this.codCliente == null && other.codCliente != null) || (this.codCliente != null && !this.codCliente.equals(other.codCliente))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -188,7 +159,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.Cliente[ codCliente=" + codCliente + " ]";
+        return "Cliente{" + "codigo=" + codigo + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", reservaList=" + reservaList + '}';
     }
-    
+        
 }

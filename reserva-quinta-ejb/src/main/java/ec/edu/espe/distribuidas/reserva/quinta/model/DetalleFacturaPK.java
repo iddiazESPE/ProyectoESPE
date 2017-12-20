@@ -6,25 +6,20 @@
 package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Embeddable
 public class DetalleFacturaPK implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_FACTURA")
+    @Column(name = "COD_FACTURA", nullable = false)
     private short codFactura;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_DETALLE")
+   
+    @Column(name = "COD_DETALLE", nullable = false)
     private int codDetalle;
 
     public DetalleFacturaPK() {

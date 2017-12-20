@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,42 +17,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author toshiba
+ * @author Qunta Search
  */
 @Entity
 @Table(name = "factura")
-@NamedQueries({
-    @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f")})
 public class Factura implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COD_FACTURA")
-    private Short codFactura;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA")
+    @Column(name = "COD_FACTURA", nullable = false)
+    private Integer codigo;
+   
+    @Column(name = "FECHA", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALOR_TOTAL")
+    
+    @Column(name = "VALOR_TOTAL", nullable = false)
     private BigDecimal valorTotal;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
     private List<DetalleFactura> detalleFacturaList;
+    
     @JoinColumns({
         @JoinColumn(name = "COD_RESERVA", referencedColumnName = "COD_RESERVA"),
         @JoinColumn(name = "COD_CLIENTE", referencedColumnName = "COD_CLIENTE")})
@@ -62,24 +55,18 @@ public class Factura implements Serializable {
     public Factura() {
     }
 
-    public Factura(Short codFactura) {
-        this.codFactura = codFactura;
+    public Factura(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Factura(Short codFactura, Date fecha, BigDecimal valorTotal) {
-        this.codFactura = codFactura;
-        this.fecha = fecha;
-        this.valorTotal = valorTotal;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Short getCodFactura() {
-        return codFactura;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
-
-    public void setCodFactura(Short codFactura) {
-        this.codFactura = codFactura;
-    }
-
+  
     public Date getFecha() {
         return fecha;
     }
@@ -114,19 +101,24 @@ public class Factura implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codFactura != null ? codFactura.hashCode() : 0);
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Factura)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Factura other = (Factura) object;
-        if ((this.codFactura == null && other.codFactura != null) || (this.codFactura != null && !this.codFactura.equals(other.codFactura))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Factura other = (Factura) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -134,7 +126,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.Factura[ codFactura=" + codFactura + " ]";
+        return "Factura{" + "codigo=" + codigo + ", fecha=" + fecha + ", valorTotal=" + valorTotal + ", detalleFacturaList=" + detalleFacturaList + ", reserva=" + reserva + '}';
     }
-    
+   
 }

@@ -7,52 +7,42 @@ package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "detalle_factura")
-@NamedQueries({
-    @NamedQuery(name = "DetalleFactura.findAll", query = "SELECT d FROM DetalleFactura d")})
 public class DetalleFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected DetalleFacturaPK detalleFacturaPK;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DESCRIPCION")
+    
+    @Column(name = "DESCRIPCION", nullable = false, length = 100)
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CANTIDAD")
-    private short cantidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALOR_UNITARIO")
+    
+    @Column(name = "CANTIDAD", nullable = false)
+    private Integer cantidad;
+  
+    @Column(name = "VALOR_UNITARIO", nullable = false, precision = 8, scale = 2)
     private BigDecimal valorUnitario;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALOR_TOTAL")
+    
+    @Column(name = "VALOR_TOTAL", nullable = false, precision = 8, scale = 2)
     private BigDecimal valorTotal;
-    @JoinColumn(name = "COD_FACTURA", referencedColumnName = "COD_FACTURA", insertable = false, updatable = false)
+    
+    @JoinColumn(name = "COD_FACTURA", nullable = false, referencedColumnName = "COD_FACTURA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Factura factura;
+    
     @JoinColumn(name = "COD_FOR_PAGO", referencedColumnName = "COD_FOR_PAGO")
     @ManyToOne
     private FormaPago codForPago;
@@ -62,14 +52,6 @@ public class DetalleFactura implements Serializable {
 
     public DetalleFactura(DetalleFacturaPK detalleFacturaPK) {
         this.detalleFacturaPK = detalleFacturaPK;
-    }
-
-    public DetalleFactura(DetalleFacturaPK detalleFacturaPK, String descripcion, short cantidad, BigDecimal valorUnitario, BigDecimal valorTotal) {
-        this.detalleFacturaPK = detalleFacturaPK;
-        this.descripcion = descripcion;
-        this.cantidad = cantidad;
-        this.valorUnitario = valorUnitario;
-        this.valorTotal = valorTotal;
     }
 
     public DetalleFactura(short codFactura, int codDetalle) {
@@ -92,11 +74,11 @@ public class DetalleFactura implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public short getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(short cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -154,7 +136,8 @@ public class DetalleFactura implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.DetalleFactura[ detalleFacturaPK=" + detalleFacturaPK + " ]";
+        return "DetalleFactura{" + "detalleFacturaPK=" + detalleFacturaPK + ", descripcion=" + descripcion + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + ", valorTotal=" + valorTotal + ", factura=" + factura + ", codForPago=" + codForPago + '}';
     }
+
     
 }

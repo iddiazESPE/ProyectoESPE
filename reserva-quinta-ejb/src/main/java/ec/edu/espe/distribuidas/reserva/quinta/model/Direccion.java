@@ -7,74 +7,64 @@ package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "direccion")
-@NamedQueries({
-    @NamedQuery(name = "Direccion.findAll", query = "SELECT d FROM Direccion d")})
 public class Direccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "COD_POSTAL")
-    private String codPostal;
-    @Size(max = 100)
-    @Column(name = "CALLE_PRINCIPAL")
+    @Column(name = "COD_POSTAL", nullable = false, length = 8)
+    private String codigo;
+    
+    @Column(name = "CALLE_PRINCIPAL", length = 100)
     private String callePrincipal;
-    @Size(max = 100)
-    @Column(name = "CALLE_SECUNDARIA")
+    
+    @Column(name = "CALLE_SECUNDARIA", length = 100)
     private String calleSecundaria;
-    @Size(max = 100)
-    @Column(name = "REFERENCIA")
+   
+    @Column(name = "REFERENCIA", length = 100)
     private String referencia;
-    @Size(max = 20)
-    @Column(name = "NUM_CASA")
+    
+    @Column(name = "NUM_CASA", length = 100)
     private String numCasa;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codPostal")
+    
     private List<Quinta> quintaList;
     @JoinColumns({
         @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA"),
         @JoinColumn(name = "COD_CANTON", referencedColumnName = "COD_CANTON"),
         @JoinColumn(name = "COD_PARROQUIA", referencedColumnName = "COD_PARROQUIA")})
+   
     @ManyToOne
     private Parroquia parroquia;
 
     public Direccion() {
     }
 
-    public Direccion(String codPostal) {
-        this.codPostal = codPostal;
+    public Direccion(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getCodPostal() {
-        return codPostal;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodPostal(String codPostal) {
-        this.codPostal = codPostal;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
-
+    
     public String getCallePrincipal() {
         return callePrincipal;
     }
@@ -125,19 +115,24 @@ public class Direccion implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codPostal != null ? codPostal.hashCode() : 0);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Direccion)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Direccion other = (Direccion) object;
-        if ((this.codPostal == null && other.codPostal != null) || (this.codPostal != null && !this.codPostal.equals(other.codPostal))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Direccion other = (Direccion) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -145,7 +140,9 @@ public class Direccion implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.Direccion[ codPostal=" + codPostal + " ]";
+        return "Direccion{" + "codigo=" + codigo + ", callePrincipal=" + callePrincipal + ", calleSecundaria=" + calleSecundaria + ", referencia=" + referencia + ", numCasa=" + numCasa + ", quintaList=" + quintaList + ", parroquia=" + parroquia + '}';
     }
+
+    
     
 }

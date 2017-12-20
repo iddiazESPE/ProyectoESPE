@@ -8,16 +8,12 @@ package ec.edu.espe.distribuidas.reserva.quinta.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,39 +21,36 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "forma_pago")
-@NamedQueries({
-    @NamedQuery(name = "FormaPago.findAll", query = "SELECT f FROM FormaPago f")})
 public class FormaPago implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_FOR_PAGO")
-    private String codForPago;
-    @Size(max = 100)
-    @Column(name = "DESCRIPCION")
+    @Column(name = "COD_FOR_PAGO", nullable = false, length = 3)
+    private String codigo;
+    
+    @Column(name = "DESCRIPCION", length = 100)
     private String descripcion;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "VALOR")
+    
+    @Column(name = "VALOR", precision = 8, scale = 2)
     private BigDecimal valor;
+    
     @OneToMany(mappedBy = "codForPago")
     private List<DetalleFactura> detalleFacturaList;
 
     public FormaPago() {
     }
 
-    public FormaPago(String codForPago) {
-        this.codForPago = codForPago;
+    public FormaPago(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getCodForPago() {
-        return codForPago;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodForPago(String codForPago) {
-        this.codForPago = codForPago;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -86,19 +79,24 @@ public class FormaPago implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codForPago != null ? codForPago.hashCode() : 0);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FormaPago)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        FormaPago other = (FormaPago) object;
-        if ((this.codForPago == null && other.codForPago != null) || (this.codForPago != null && !this.codForPago.equals(other.codForPago))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FormaPago other = (FormaPago) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -106,7 +104,7 @@ public class FormaPago implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.FormaPago[ codForPago=" + codForPago + " ]";
+        return "FormaPago{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", valor=" + valor + ", detalleFacturaList=" + detalleFacturaList + '}';
     }
     
 }
