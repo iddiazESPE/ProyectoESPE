@@ -6,33 +6,23 @@
 package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Embeddable
 public class ParroquiaPK implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_PROVINCIA")
+    @Column(name = "COD_PROVINCIA" ,nullable = false, length = 3)
     private String codProvincia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_CANTON")
+    
+    @Column(name = "COD_CANTON" ,nullable = false, length = 3)
     private String codCanton;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "COD_PARROQUIA")
+    
+    @Column(name = "COD_PARROQUIA" ,nullable = false, length = 3)
     private String codParroquia;
 
     public ParroquiaPK() {

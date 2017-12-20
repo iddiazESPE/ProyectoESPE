@@ -9,48 +9,43 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "reserva")
-@NamedQueries({
-    @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")})
 public class Reserva implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected ReservaPK reservaPK;
-    @Basic(optional = false)
-    @NotNull
+    
     @Column(name = "FECHA_EMISION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEmision;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALOR_FINAL")
+   
+    @Column(name = "VALOR_FINAL" ,nullable = false, precision = 8, scale = 2)
     private BigDecimal valorFinal;
+    
     @OneToMany(mappedBy = "reserva")
     private List<Factura> facturaList;
+    
     @JoinColumn(name = "COD_QUINTA", referencedColumnName = "COD_QUINTA")
     @ManyToOne
     private Quinta codQuinta;
+    
     @JoinColumn(name = "COD_CLIENTE", referencedColumnName = "COD_CLIENTE", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Cliente cliente;

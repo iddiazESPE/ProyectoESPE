@@ -5,72 +5,53 @@
  */
 package ec.edu.espe.distribuidas.reserva.quinta.model;
 
+import ec.edu.espe.distribuidas.reserva.quinta.enums.TipoIdentificacionEnum;
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "representante_quinta")
-@NamedQueries({
-    @NamedQuery(name = "RepresentanteQuinta.findAll", query = "SELECT r FROM RepresentanteQuinta r")})
 public class RepresentanteQuinta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "COD_REPRESENTANTE")
-    private Integer codRepresentante;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "NOMBRE")
+    private Integer codigo;
+    
+    @Column(name = "NOMBRE" ,nullable = false, length = 100)
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "APELLIDO")
+    
+    @Column(name = "APELLIDO" ,nullable = false, length = 100)
     private String apellido;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "TELEFONO")
+    
+    @Column(name = "TELEFONO" ,nullable = false, length = 20)
     private String telefono;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "DIRECCION_REP")
+    
+    @Column(name = "DIRECCION_REP" ,nullable = false, length = 100)
     private String direccionRep;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "IDENTIFICACION")
+    
+    @Column(name = "IDENTIFICACION" ,nullable = false, length = 15)
     private String identificacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "TIPO_IDENTIFICACION")
-    private String tipoIdentificacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "CARGO")
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_IDENTIFICACION" ,nullable = false, length = 3)
+    private TipoIdentificacionEnum tipoIdentificacion;
+    
+    @Column(name = "CARGO" ,nullable = false, length = 100)
     private String cargo;
+    
     @JoinColumn(name = "COD_QUINTA", referencedColumnName = "COD_QUINTA")
     @ManyToOne
     private Quinta codQuinta;
@@ -78,27 +59,16 @@ public class RepresentanteQuinta implements Serializable {
     public RepresentanteQuinta() {
     }
 
-    public RepresentanteQuinta(Integer codRepresentante) {
-        this.codRepresentante = codRepresentante;
+    public RepresentanteQuinta(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public RepresentanteQuinta(Integer codRepresentante, String nombre, String apellido, String telefono, String direccionRep, String identificacion, String tipoIdentificacion, String cargo) {
-        this.codRepresentante = codRepresentante;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.direccionRep = direccionRep;
-        this.identificacion = identificacion;
-        this.tipoIdentificacion = tipoIdentificacion;
-        this.cargo = cargo;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodRepresentante() {
-        return codRepresentante;
-    }
-
-    public void setCodRepresentante(Integer codRepresentante) {
-        this.codRepresentante = codRepresentante;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -141,11 +111,11 @@ public class RepresentanteQuinta implements Serializable {
         this.identificacion = identificacion;
     }
 
-    public String getTipoIdentificacion() {
+    public TipoIdentificacionEnum getTipoIdentificacion() {
         return tipoIdentificacion;
     }
 
-    public void setTipoIdentificacion(String tipoIdentificacion) {
+    public void setTipoIdentificacion(TipoIdentificacionEnum tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
     }
 
@@ -167,19 +137,24 @@ public class RepresentanteQuinta implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codRepresentante != null ? codRepresentante.hashCode() : 0);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RepresentanteQuinta)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        RepresentanteQuinta other = (RepresentanteQuinta) object;
-        if ((this.codRepresentante == null && other.codRepresentante != null) || (this.codRepresentante != null && !this.codRepresentante.equals(other.codRepresentante))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RepresentanteQuinta other = (RepresentanteQuinta) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -187,7 +162,7 @@ public class RepresentanteQuinta implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.RepresentanteQuinta[ codRepresentante=" + codRepresentante + " ]";
+        return "RepresentanteQuinta{" + "codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccionRep=" + direccionRep + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", cargo=" + cargo + ", codQuinta=" + codQuinta + '}';
     }
-    
+
 }

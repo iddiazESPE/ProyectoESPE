@@ -6,25 +6,22 @@
 package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Embeddable
 public class ReservaPK implements Serializable {
 
-    @Basic(optional = false)
     @Column(name = "COD_RESERVA")
-    private int codReserva;
-    @Basic(optional = false)
-    @NotNull
+    private Integer codReserva;
+ 
     @Column(name = "COD_CLIENTE")
-    private int codCliente;
+    private Integer codCliente;
 
     public ReservaPK() {
     }
@@ -52,23 +49,28 @@ public class ReservaPK implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (int) codReserva;
-        hash += (int) codCliente;
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.codReserva);
+        hash = 11 * hash + Objects.hashCode(this.codCliente);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReservaPK)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        ReservaPK other = (ReservaPK) object;
-        if (this.codReserva != other.codReserva) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (this.codCliente != other.codCliente) {
+        final ReservaPK other = (ReservaPK) obj;
+        if (!Objects.equals(this.codReserva, other.codReserva)) {
+            return false;
+        }
+        if (!Objects.equals(this.codCliente, other.codCliente)) {
             return false;
         }
         return true;

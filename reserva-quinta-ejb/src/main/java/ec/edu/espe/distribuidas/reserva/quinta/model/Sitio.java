@@ -7,72 +7,60 @@ package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author toshiba
+ * @author Quinta Search
  */
 @Entity
 @Table(name = "sitio")
-@NamedQueries({
-    @NamedQuery(name = "Sitio.findAll", query = "SELECT s FROM Sitio s")})
 public class Sitio implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "COD_SITIO")
-    private Integer codSitio;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NUM_PERSONAS_PERMITIDAS")
-    private short numPersonasPermitidas;
+    private Integer codigo;
+    
+    @Column(name = "NUM_PERSONAS_PERMITIDAS" ,nullable = false, length = 3)
+    private Integer numPersonasPermitidas;
+    
     @JoinColumn(name = "COD_TIP_SITIO", referencedColumnName = "COD_TIP_SITO")
     @ManyToOne(optional = false)
     private TipoSitio codTipSitio;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codSitio")
     private List<Quinta> quintaList;
 
     public Sitio() {
     }
 
-    public Sitio(Integer codSitio) {
-        this.codSitio = codSitio;
+    public Sitio(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public Sitio(Integer codSitio, short numPersonasPermitidas) {
-        this.codSitio = codSitio;
-        this.numPersonasPermitidas = numPersonasPermitidas;
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    public Integer getCodSitio() {
-        return codSitio;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodSitio(Integer codSitio) {
-        this.codSitio = codSitio;
-    }
-
-    public short getNumPersonasPermitidas() {
+    public Integer getNumPersonasPermitidas() {
         return numPersonasPermitidas;
     }
 
-    public void setNumPersonasPermitidas(short numPersonasPermitidas) {
+    public void setNumPersonasPermitidas(Integer numPersonasPermitidas) {
         this.numPersonasPermitidas = numPersonasPermitidas;
     }
 
@@ -94,19 +82,24 @@ public class Sitio implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (codSitio != null ? codSitio.hashCode() : 0);
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sitio)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Sitio other = (Sitio) object;
-        if ((this.codSitio == null && other.codSitio != null) || (this.codSitio != null && !this.codSitio.equals(other.codSitio))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sitio other = (Sitio) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
         return true;
@@ -114,7 +107,7 @@ public class Sitio implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.Sitio[ codSitio=" + codSitio + " ]";
+        return "Sitio{" + "codigo=" + codigo + ", numPersonasPermitidas=" + numPersonasPermitidas + ", codTipSitio=" + codTipSitio + ", quintaList=" + quintaList + '}';
     }
-    
+
 }
