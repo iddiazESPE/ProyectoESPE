@@ -19,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 public class TipoSitioFacade extends AbstractFacade<TipoSitio> {
 
-    @PersistenceContext(unitName = "punit")
+    @PersistenceContext(unitName = "ec.edu.espe.distribuidas_reserva-quinta-ejb_ejb_1PU")
     private EntityManager em;
 
     @Override
