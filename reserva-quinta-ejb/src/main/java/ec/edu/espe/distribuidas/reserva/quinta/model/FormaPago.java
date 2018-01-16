@@ -35,9 +35,6 @@ public class FormaPago implements Serializable {
     @Column(name = "VALOR", precision = 8, scale = 2)
     private BigDecimal valor;
     
-    @OneToMany(mappedBy = "codForPago")
-    private List<DetalleFactura> detalleFacturaList;
-
     public FormaPago() {
     }
 
@@ -69,14 +66,6 @@ public class FormaPago implements Serializable {
         this.valor = valor;
     }
 
-    public List<DetalleFactura> getDetalleFacturaList() {
-        return detalleFacturaList;
-    }
-
-    public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
-        this.detalleFacturaList = detalleFacturaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -104,7 +93,7 @@ public class FormaPago implements Serializable {
 
     @Override
     public String toString() {
-        return "FormaPago{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", valor=" + valor + ", detalleFacturaList=" + detalleFacturaList + '}';
+        return "FormaPago{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", valor=" + valor + '}';
     }
     
 }
