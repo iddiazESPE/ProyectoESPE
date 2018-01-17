@@ -52,6 +52,7 @@ public class RepresentanteQuintaBean extends BaseBean implements Serializable {
     public void modificar() {
         super.modificar();
         this.representanteQuinta= new RepresentanteQuinta();
+        this.representanteQuinta.setCodigo(this.representanteQuintaSel.getCodigo());
         this.representanteQuinta.setCodQuinta(this.representanteQuintaSel.getCodQuinta());
         this.representanteQuinta.setNombre(this.representanteQuintaSel.getNombre());
         this.representanteQuinta.setApellido(this.representanteQuintaSel.getApellido());

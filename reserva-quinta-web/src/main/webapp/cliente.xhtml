@@ -9,7 +9,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="contenido">
-            <p:panel id="mainPnl" header="Cliente" style="width: 88%; margin: auto;" >
+            <p:panel id="mainPnl" header="Cliente" style="width: 80%; margin: auto;" >
                 <p:dataTable var="cliente" value="#{clienteBean.clientes}" 
                              selectionMode="single" selection="#{clienteBean.clienteSel}" rowKey="#{cliente.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
@@ -29,7 +29,7 @@
                         <h:outputText value="#{cliente.telefono}" />
                     </p:column>
                     <p:column headerText="Direccion">
-                        <h:outputText value="#{cliente.direccionRep}" />
+                        <h:outputText value="#{cliente.direccion}" />
                     </p:column>
                     <p:column headerText="Tipo Identificaci&oacute;n">
                         <h:outputText value="#{cliente.tipoIdentificacion}" />
@@ -45,6 +45,9 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                 <p:commandButton value="Agregar" actionListener="#{clienteBean.agregar()}" update="@form"/>
                 <p:commandButton id="modBtn" value="Modificar" actionListener="#{clienteBean.modificar()}" update="@form" disabled="#{clienteBean.clienteSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{clienteBean.eliminar()}" update="@form" disabled="#{clienteBean.clienteSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el cliente: #{clienteBean.clienteSel.nombre}}" icon="ui-icon-alert" />
+                </p:commandButton>
                 
                 <p:panel header="#{clienteBean.titulo} Cliente" visible="#{clienteBean.habilitaForm}">
                     <p:panelGrid columns="2">
@@ -55,8 +58,8 @@
                         
                         <p:outputLabel for="telefono" value="Telefono" />
                         <p:inputText id="telefono" value="#{clienteBean.cliente.telefono}"  />
-                        <p:outputLabel for="direccionRep" value="Direccion" />
-                        <p:inputText id="direccionRep" value="#{clienteBean.cliente.direccionRep}"  />
+                        <p:outputLabel for="direccion" value="Direccion" />
+                        <p:inputText id="direccion" value="#{clienteBean.cliente.direccion}"  />
                         <p:outputLabel for="tipo" value="Tipo Identificacion" />
                         <h:selectOneMenu value="#{clienteBean.cliente.tipoIdentificacion}" style="background-color: activeborder" >
                             <f:selectItems id="tipo" value="#{clienteBean.tiposIdentificacion}" var="tipoIdentificacion" itemValue="#{tipoIdentificacion}" itemLabel="#{tipoIdentificacion.texto}"  />                          

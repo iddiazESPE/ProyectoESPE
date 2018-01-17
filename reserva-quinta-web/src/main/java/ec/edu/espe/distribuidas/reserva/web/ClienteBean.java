@@ -52,12 +52,13 @@ public class ClienteBean extends BaseBean implements Serializable {
     public void modificar() {
         super.modificar();
         this.cliente= new Cliente();
-        this.cliente.setTipoIdentificacion(this.clienteSel.getTipoIdentificacion());
-        this.cliente.setIdentificacion(this.clienteSel.getIdentificacion());
+        this.cliente.setCodigo(this.clienteSel.getCodigo());
         this.cliente.setNombre(this.clienteSel.getNombre());
         this.cliente.setApellido(this.clienteSel.getApellido());
-        this.cliente.setDireccion(this.clienteSel.getDireccion());
-        this.cliente.setTelefono(this.clienteSel.getTelefono());
+        this.cliente.setTelefono(this.clienteSel.getTelefono());        
+        this.cliente.setDireccion(this.clienteSel.getDireccion());        
+        this.cliente.setTipoIdentificacion(this.clienteSel.getTipoIdentificacion());
+        this.cliente.setIdentificacion(this.clienteSel.getIdentificacion());
         this.cliente.setEmail(this.clienteSel.getEmail());
         
     }
