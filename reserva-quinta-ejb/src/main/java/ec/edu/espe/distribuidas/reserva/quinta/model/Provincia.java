@@ -31,9 +31,6 @@ public class Provincia implements Serializable {
     
     @Column(name = "DESCRIPCION" ,nullable = false, length = 100)
     private String descripcion;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "provincia")
-    private List<Canton> cantonList;
 
     public Provincia() {
     }
@@ -58,13 +55,6 @@ public class Provincia implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Canton> getCantonList() {
-        return cantonList;
-    }
-
-    public void setCantonList(List<Canton> cantonList) {
-        this.cantonList = cantonList;
-    }
 
     @Override
     public int hashCode() {
@@ -93,7 +83,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "Provincia{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", cantonList=" + cantonList + '}';
+        return "Provincia{" + "codigo=" + codigo + ", descripcion=" + descripcion +'}';
     }
     
 }
