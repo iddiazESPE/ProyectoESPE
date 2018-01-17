@@ -5,10 +5,13 @@
  */
 package ec.edu.espe.distribuidas.reserva.quinta.dao;
 
+import ec.edu.espe.distribuidas.reserva.quinta.enums.TipoIdentificacionEnum;
 import ec.edu.espe.distribuidas.reserva.quinta.model.Cliente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,12 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
     public ClienteFacade() {
         super(Cliente.class);
+    }
+    
+      public List<Cliente> findByTipo(TipoIdentificacionEnum tipo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Cliente obj WHERE obj.tipo=?1");
+        qry.setParameter(1, tipo);
+        return qry.getResultList();
     }
     
 }

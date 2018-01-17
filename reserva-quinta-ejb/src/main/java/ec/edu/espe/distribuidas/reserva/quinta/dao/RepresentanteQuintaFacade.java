@@ -6,7 +6,6 @@
 package ec.edu.espe.distribuidas.reserva.quinta.dao;
 
 import ec.edu.espe.distribuidas.reserva.quinta.enums.TipoIdentificacionEnum;
-import ec.edu.espe.distribuidas.reserva.quinta.model.Quinta;
 import ec.edu.espe.distribuidas.reserva.quinta.model.RepresentanteQuinta;
 import java.util.List;
 import javax.ejb.Stateless;
