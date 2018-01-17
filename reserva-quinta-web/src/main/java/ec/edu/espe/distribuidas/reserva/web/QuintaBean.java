@@ -6,18 +6,21 @@
 package ec.edu.espe.distribuidas.reserva.web;
 
 import ec.edu.espe.distribuidas.reserva.quinta.model.Quinta;
-import ec.edu.espe.distribuidas.reserva.quinta.model.Servicio;
 import ec.edu.espe.distribuidas.reserva.quinta.service.QuintaService;
 import ec.edu.espe.distribuidas.reserva.web.util.FacesUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author toshiba
  */
+@Named
+@ViewScoped
 public class QuintaBean extends BaseBean implements Serializable {
     private List<Quinta> quintas;
     
@@ -73,6 +76,12 @@ public class QuintaBean extends BaseBean implements Serializable {
         }
     }
 
+    @Override
+    public void detalles() {
+        super.detalles();
+        this.quinta = this.quintaSel;
+    }
+    
     public void cancelar() {
         super.reset();
         this.quinta = new Quinta();
@@ -82,10 +91,10 @@ public class QuintaBean extends BaseBean implements Serializable {
         try {
             if (this.enAgregar) {
                 this.quintaService.crear(this.quinta);
-                FacesUtil.addMessageInfo("Se agregó el Servicio: " + this.quinta.getRucQuinta());
+                FacesUtil.addMessageInfo("Se agregó la Quinta: " + this.quinta.getRazonSocial());
             } else {
                 this.quintaService.modificar(this.quinta);
-                FacesUtil.addMessageInfo("Se modific\u00f3 el Servicio con c\u00f3digo: " + this.quinta.getCodigo());
+                FacesUtil.addMessageInfo("Se modific\u00f3 la Quinta con c\u00f3digo: " + this.quinta.getCodigo());
             }
         } catch (Exception ex) {
             FacesUtil.addMessageError(null, "Ocurrí\u00f3 un error al actualizar la informaci\u00f3n");
