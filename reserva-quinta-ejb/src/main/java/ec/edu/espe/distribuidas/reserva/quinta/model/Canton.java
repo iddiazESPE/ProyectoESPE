@@ -26,10 +26,9 @@ public class Canton implements Serializable {
     @Column(name = "DESCRIPCION", length = 100)
     private String descripcion;
     
-    private List<Parroquia> parroquiaList;
-    @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
     
+    @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA", insertable = false, updatable = false)
+    @ManyToOne  
     private Provincia provincia;
 
     public Canton() {
@@ -53,14 +52,6 @@ public class Canton implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public List<Parroquia> getParroquiaList() {
-        return parroquiaList;
-    }
-
-    public void setParroquiaList(List<Parroquia> parroquiaList) {
-        this.parroquiaList = parroquiaList;
     }
 
     public Provincia getProvincia() {
@@ -93,7 +84,6 @@ public class Canton implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.distribuidas.reserva.quinta.model.Canton[ cantonPK=" + cantonPK + " ]";
+        return "Canton{" + "cantonPK=" + cantonPK + ", descripcion=" + descripcion + ", provincia=" + provincia + '}';
     }
-    
 }

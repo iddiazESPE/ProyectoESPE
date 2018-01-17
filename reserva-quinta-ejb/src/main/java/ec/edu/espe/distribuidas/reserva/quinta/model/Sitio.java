@@ -34,12 +34,10 @@ public class Sitio implements Serializable {
     @Column(name = "NUM_PERSONAS_PERMITIDAS" ,nullable = false, length = 3)
     private Integer numPersonasPermitidas;
     
-    @JoinColumn(name = "COD_TIP_SITIO", referencedColumnName = "COD_TIP_SITO")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "COD_TIP_SITIO", referencedColumnName = "COD_TIP_SITO", insertable = false, updatable = false)
+    @ManyToOne
     private TipoSitio codTipSitio;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codSitio")
-    private List<Quinta> quintaList;
 
     public Sitio() {
     }
@@ -72,14 +70,6 @@ public class Sitio implements Serializable {
         this.codTipSitio = codTipSitio;
     }
 
-    public List<Quinta> getQuintaList() {
-        return quintaList;
-    }
-
-    public void setQuintaList(List<Quinta> quintaList) {
-        this.quintaList = quintaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -107,7 +97,7 @@ public class Sitio implements Serializable {
 
     @Override
     public String toString() {
-        return "Sitio{" + "codigo=" + codigo + ", numPersonasPermitidas=" + numPersonasPermitidas + ", codTipSitio=" + codTipSitio + ", quintaList=" + quintaList + '}';
+        return "Sitio{" + "codigo=" + codigo + ", numPersonasPermitidas=" + numPersonasPermitidas + ", codTipSitio=" + codTipSitio +  '}';
     }
 
 }

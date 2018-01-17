@@ -50,8 +50,6 @@ public class Cliente implements Serializable {
     @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
-    private List<Reserva> reservaList;
 
     public Cliente() {
     }
@@ -124,14 +122,6 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
-    public List<Reserva> getReservaList() {
-        return reservaList;
-    }
-
-    public void setReservaList(List<Reserva> reservaList) {
-        this.reservaList = reservaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -159,7 +149,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "codigo=" + codigo + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", reservaList=" + reservaList + '}';
+        return "Cliente{" + "codigo=" + codigo + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email +'}';
     }
         
 }

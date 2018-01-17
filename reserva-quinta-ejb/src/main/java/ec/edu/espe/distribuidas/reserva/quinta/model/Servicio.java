@@ -36,9 +36,6 @@ public class Servicio implements Serializable {
     @Column(name = "PRECIO")
     private BigDecimal precio;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codServicio")
-    private List<Quinta> quintaList;
-
     public Servicio() {
     }
 
@@ -70,14 +67,6 @@ public class Servicio implements Serializable {
         this.precio = precio;
     }
 
-    public List<Quinta> getQuintaList() {
-        return quintaList;
-    }
-
-    public void setQuintaList(List<Quinta> quintaList) {
-        this.quintaList = quintaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -105,7 +94,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "Servicio{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + ", quintaList=" + quintaList + '}';
+        return "Servicio{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", precio=" + precio + '}';
     }
     
 }

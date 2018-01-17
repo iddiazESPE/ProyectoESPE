@@ -42,15 +42,15 @@ public class Quinta implements Serializable {
     @Column(name = "EMAIL" ,nullable = false, length = 100)
     private String email;
     
-    @JoinColumn(name = "COD_SERVICIO", referencedColumnName = "COD_SERVICIO")
+    @JoinColumn(name = "COD_SERVICIO", referencedColumnName = "COD_SERVICIO" ,insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Servicio codServicio;
     
-    @JoinColumn(name = "COD_SITIO", referencedColumnName = "COD_SITIO")
+    @JoinColumn(name = "COD_SITIO", referencedColumnName = "COD_SITIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Sitio codSitio;
     
-    @JoinColumn(name = "COD_POSTAL", referencedColumnName = "COD_POSTAL")
+    @JoinColumn(name = "COD_POSTAL", referencedColumnName = "COD_POSTAL", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Direccion codPostal;
     

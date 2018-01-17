@@ -42,12 +42,12 @@ public class Reserva implements Serializable {
     @OneToMany(mappedBy = "reserva")
     private List<Factura> facturaList;
     
-    @JoinColumn(name = "COD_QUINTA", referencedColumnName = "COD_QUINTA")
+    @JoinColumn(name = "COD_QUINTA", referencedColumnName = "COD_QUINTA", insertable = false, updatable = false)
     @ManyToOne
     private Quinta codQuinta;
     
     @JoinColumn(name = "COD_CLIENTE", referencedColumnName = "COD_CLIENTE", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Cliente cliente;
 
     public Reserva() {
