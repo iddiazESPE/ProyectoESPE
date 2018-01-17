@@ -5,10 +5,14 @@
  */
 package ec.edu.espe.distribuidas.reserva.quinta.dao;
 
+import ec.edu.espe.distribuidas.reserva.quinta.enums.TipoIdentificacionEnum;
+import ec.edu.espe.distribuidas.reserva.quinta.model.Quinta;
 import ec.edu.espe.distribuidas.reserva.quinta.model.RepresentanteQuinta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +33,11 @@ public class RepresentanteQuintaFacade extends AbstractFacade<RepresentanteQuint
         super(RepresentanteQuinta.class);
     }
     
+     public List<RepresentanteQuinta> findByTipo(TipoIdentificacionEnum tipo) {
+        Query qry = this.em.createQuery("SELECT obj FROM RepresentanteQuinta obj WHERE obj.tipo=?1");
+        qry.setParameter(1, tipo);
+        return qry.getResultList();
+    }
+
+  
 }

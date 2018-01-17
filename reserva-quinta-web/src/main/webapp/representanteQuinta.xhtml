@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel id="mainPnl" header="Representante Quinta" style="width: 88%; margin: auto;" >
+                <p:dataTable var="representanteQuinta" value="#{representanteQuintaBean.representantesQuinta}" 
+                             selectionMode="single" selection="#{representanteQuintaBean.representanteQuintaSel}" rowKey="#{representanteQuinta.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    
+                    <p:column headerText="C&oacute;digo Representante">
+                        <h:outputText value="#{representanteQuinta.codigo}" />
+                    </p:column>
+                    <p:column headerText="C&oacute;digo Quinta">
+                        <h:outputText value="#{representanteQuinta.codQuinta}" />
+                    </p:column>
+                     <p:column headerText="Nombre">
+                        <h:outputText value="#{representanteQuinta.nombre}" />
+                    </p:column>
+                    
+                    <p:column headerText="Apellido">
+                        <h:outputText value="#{representanteQuinta.apellido}" />
+                    </p:column>
+                    <p:column headerText="Telefono">
+                        <h:outputText value="#{representanteQuinta.telefono}" />
+                    </p:column>
+                    <p:column headerText="Direccion">
+                        <h:outputText value="#{representanteQuinta.direccionRep}" />
+                    </p:column>
+                    <p:column headerText="Tipo Identificaci&oacute;n">
+                        <h:outputText value="#{representanteQuinta.tipoIdentificacion}" />
+                    </p:column>
+                    <p:column headerText="Identificaci&oacute;n">
+                        <h:outputText value="#{representanteQuinta.identificacion}" />
+                    </p:column>                    
+                    <p:column headerText="Cargo">
+                        <h:outputText value="#{representanteQuinta.cargo}" />
+                    </p:column>
+                </p:dataTable>
+
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:commandButton value="Agregar" actionListener="#{representanteQuintaBean.agregar()}" update="@form"/>
+                <p:commandButton id="modBtn" value="Modificar" actionListener="#{representanteQuintaBean.modificar()}" update="@form" disabled="#{representanteQuintaBean.representanteQuintaSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{representanteQuintaBean.eliminar()}" update="@form" disabled="#{representanteQuintaBean.representanteQuintaSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el representante: #{representanteQuintaBean.representanteQuintaSel.nombre}}" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:panel header="#{representanteQuintaBean.titulo} Representante Quinta" visible="#{representanteQuintaBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codQuinta" value="codigo Quinta" />
+                        <p:inputText id="codQuinta" value="#{representanteQuintaBean.representanteQuinta.codQuinta}"  />
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{representanteQuintaBean.representanteQuinta.nombre}"  />
+                        <p:outputLabel for="apellido" value="Apellido" />
+                        <p:inputText id="apellido" value="#{representanteQuintaBean.representanteQuinta.apellido}"  />
+                        
+                        <p:outputLabel for="telefono" value="Telefono" />
+                        <p:inputText id="telefono" value="#{representanteQuintaBean.representanteQuinta.telefono}"  />
+                        <p:outputLabel for="direccionRep" value="Direccion" />
+                        <p:inputText id="direccionRep" value="#{representanteQuintaBean.representanteQuinta.direccionRep}"  />
+                        <p:outputLabel for="tipo" value="Tipo Identificacion" />
+                        <h:selectOneMenu value="#{representanteQuintaBean.representanteQuinta.tipoIdentificacion}" style="background-color: activeborder" >
+                            <f:selectItems id="tipo" value="#{representanteQuintaBean.tiposIdentificacion}" var="tipoIdentificacion" itemValue="#{tipoIdentificacion}" itemLabel="#{tipoIdentificacion.texto}"  />                          
+                        </h:selectOneMenu>                        
+                        <p:outputLabel for="identificacion" value="Identificacion" />
+                        <p:inputText id="identificacion" value="#{representanteQuintaBean.representanteQuinta.identificacion}"  />                   
+                        <p:outputLabel for="cargo" value="Cargo" />
+                        <p:inputText id="cargo" value="#{representanteQuintaBean.representanteQuinta.cargo}"  />
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{representanteQuintaBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{representanteQuintaBean.cancelar}" update="@form" />
+
+                </p:panel>
+
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </ui:define> 
+    </ui:composition>
+</html>
