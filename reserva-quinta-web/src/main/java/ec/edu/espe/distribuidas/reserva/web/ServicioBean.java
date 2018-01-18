@@ -53,6 +53,7 @@ public class ServicioBean extends BaseBean implements Serializable {
         this.servicio= new Servicio();
         this.servicio.setCodigo(this.servicioSel.getCodigo());
         this.servicio.setDescripcion(this.servicioSel.getDescripcion());
+        this.servicio.setPrecio(this.servicioSel.getPrecio());
     }
     
      public void eliminar() {

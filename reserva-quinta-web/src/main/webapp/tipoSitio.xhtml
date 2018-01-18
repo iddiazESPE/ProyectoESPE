@@ -25,7 +25,7 @@
                 <p:commandButton value="Agregar" actionListener="#{tipoSitioBean.agregar()}" update="@form"/>
                 <p:commandButton id="modBtn" value="Modificar" actionListener="#{tipoSitioBean.modificar()}" update="@form" disabled="#{tipoSitioBean.tipoSitioSel eq null}"/>
                 <p:commandButton value="Eliminar" actionListener="#{tipoSitioBean.eliminar()}" update="@form" disabled="#{tipoSitioBean.tipoSitioSel eq null}" >
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el tipo de asitio: #{tipoSitioBean.tipoSitioSel.descripcion}}" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el tipo de sitio: #{tipoSitioBean.tipoSitioSel.descripcion}}" icon="ui-icon-alert" />
                 </p:commandButton>
 
                 <p:panel header="#{tipoSitioBean.titulo} Tipo Sitio" visible="#{tipoSitioBean.habilitaForm}">

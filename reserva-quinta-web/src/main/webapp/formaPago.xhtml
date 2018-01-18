@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel id="mainPnl" header="Forma Pago" style="width: 50%; margin: auto;" >
+                <p:dataTable var="formaPago" value="#{formaPagoBean.formasPago}" 
+                             selectionMode="single" selection="#{formaPagoBean.formaPagoSel}" rowKey="#{formaPago.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="C&oacute;digo">
+                        <h:outputText value="#{formaPago.codigo}" />
+                    </p:column>
+                    <p:column headerText="Descripci&oacute;n">
+                        <h:outputText value="#{formaPago.descripcion}" />
+                    </p:column>                   
+                </p:dataTable>
+
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:commandButton value="Agregar" actionListener="#{formaPagoBean.agregar()}" update="@form"/>
+                <p:commandButton id="modBtn" value="Modificar" actionListener="#{formaPagoBean.modificar()}" update="@form" disabled="#{formaPagoBean.formaPagoSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{formaPagoBean.eliminar()}" update="@form" disabled="#{formaPagoBean.formaPagoSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el servicio: #{formaPagoBean.formaPagoSel.descripcion}}" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:panel header="#{formaPagoBean.titulo} Servicio" visible="#{formaPagoBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="Codigo" />
+                        <p:inputText id="codigo" value="#{formaPagoBean.formaPago.codigo}"  />
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputText id="descripcion" value="#{formaPagoBean.formaPago.descripcion}"  />                        
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{formaPagoBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{formaPagoBean.cancelar}" update="@form" />
+
+                </p:panel>
+
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </ui:define> 
+    </ui:composition>
+</html>

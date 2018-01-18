@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -12,15 +9,29 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="contenido">
-            <p:panel id="mainPnl" header="Quinta" style="width: 50%; margin: auto;" >
-                <p:dataTable var="quinta" value="" selectionMode="single" 
-                             selection="" rowKey="">
+            <p:panel id="mainPnl" header="Quinta" style="width: 80%; margin: auto;" >
+                <p:dataTable var="quinta" value="#{quintaBean.quintas}" 
+                             selectionMode="single" selection="#{QuintaBean.quintaSel}" rowKey="#{quinta.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
-                    <p:column headerText="Codigo">
-                        <h:outputText value="" />
+                    
+                    <p:column headerText="C&oacute;digo Quinta">
+                        <h:outputText value="#{quinta.codigo}" />
+                    </p:column>        
+                                    
+                    <p:column headerText="Razon Social">
+                        <h:outputText value="#{quinta.razonSocial}" />
                     </p:column>
-
+                    <p:column headerText="Telefono">
+                        <h:outputText value="#{quinta.telefono}" />
+                    </p:column>
+                    <p:column headerText="RUC">
+                        <h:outputText value="#{quinta.rucQuinta}" />
+                    </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{quinta.email}" />
+                    </p:column>
+                    
                 </p:dataTable>
             </p:panel>
         </ui:define>

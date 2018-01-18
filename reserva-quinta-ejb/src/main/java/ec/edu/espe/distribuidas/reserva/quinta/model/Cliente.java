@@ -6,13 +6,10 @@
 package ec.edu.espe.distribuidas.reserva.quinta.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -50,7 +47,10 @@ public class Cliente implements Serializable {
     @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> c9213351b86c756e152b4c94c2231e94cedb7599
     public Cliente() {
     }
 
@@ -149,7 +149,11 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "Cliente{" + "codigo=" + codigo + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email +'}';
+=======
+        return "Cliente{" + "codigo=" + codigo + ", identificacion=" + identificacion + ", tipoIdentificacion=" + tipoIdentificacion + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + '}';
+>>>>>>> c9213351b86c756e152b4c94c2231e94cedb7599
     }
         
 }
